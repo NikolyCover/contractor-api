@@ -9,7 +9,7 @@ import unioeste.br.contractor_api.paymentMethod.service.PaymentMethodService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/payment-method")
+@RequestMapping("/payment-method")
 public class PaymentMethodController {
 
     @Autowired

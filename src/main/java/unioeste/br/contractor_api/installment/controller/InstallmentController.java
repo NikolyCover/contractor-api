@@ -10,7 +10,7 @@ import unioeste.br.contractor_api.installment.service.InstallmentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/installments")
+@RequestMapping("/installment")
 @RequiredArgsConstructor
 public class InstallmentController {
 

@@ -1,5 +1,6 @@
 package unioeste.br.contractor_api.contractItem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import unioeste.br.contractor_api.contract.model.Contract;
@@ -26,6 +27,7 @@ public class ContractItem {
 
     @ManyToOne
     @JoinColumn(name = "contract_id", nullable = true)
+    @JsonBackReference
     private Contract contract;
 
     @ManyToOne

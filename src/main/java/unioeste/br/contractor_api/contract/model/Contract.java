@@ -2,14 +2,17 @@ package unioeste.br.contractor_api.contract.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import unioeste.br.contractor_api.contractItem.model.ContractItem;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
+import unioeste.br.contractor_api.installment.model.Installment;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
 import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
@@ -65,4 +68,10 @@ public class Contract {
     private Status status;
 
     private Double financialProgress;
+
+    @OneToMany(mappedBy = "contract")
+    private List<Installment> installments;
+
+    @OneToMany(mappedBy = "contract")
+    private List<ContractItem> contractItems;
 }

@@ -18,6 +18,10 @@ public class ContractedCompanyEmployeeService {
         return repository.findAll();
     }
 
+    public List<ContractedCompanyEmployee> findByCompanyId(Long companyId) {
+        return repository.findByCompanyId(companyId);
+    }
+
     public Optional<ContractedCompanyEmployee> findById(Long id) {
         return repository.findById(id);
     }

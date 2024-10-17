@@ -18,6 +18,10 @@ public class HiringCompanyEmployeeService {
         return repository.findAll();
     }
 
+    public List<HiringCompanyEmployee> findByCompanyId(Long companyId) {
+        return repository.findByCompanyId(companyId);
+    }
+
     public Optional<HiringCompanyEmployee> findById(Long id) {
         return repository.findById(id);
     }

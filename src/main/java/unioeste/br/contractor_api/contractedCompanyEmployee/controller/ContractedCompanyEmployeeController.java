@@ -10,14 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/contracted-company-employee")
+@RequestMapping("/contracted-company-employee")
 public class ContractedCompanyEmployeeController {
 
     @Autowired
     private ContractedCompanyEmployeeService service;
 
     @GetMapping
-    public List<ContractedCompanyEmployee> getAllEmployees() {
+    public List<ContractedCompanyEmployee> getAllEmployees(@RequestParam(required = false) Long companyId ) {
+        if(companyId != null) {
+            return service.findByCompanyId(companyId);
+        }
+
         return service.findAll();
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/contract-type")
+@RequestMapping("/contract-type")
 public class ContractTypeController {
 
     @Autowired

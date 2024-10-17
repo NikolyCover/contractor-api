@@ -1,5 +1,6 @@
 package unioeste.br.contractor_api.installment.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import unioeste.br.contractor_api.contract.model.Contract;
@@ -16,7 +17,7 @@ public class Installment {
 
     private Double value;
 
-    private LocalDate scheduledDeliveryDate;
+    private LocalDate scheduledPaymentDate;
 
     private LocalDate paymentDate;
 
@@ -24,5 +25,6 @@ public class Installment {
 
     @ManyToOne
     @JoinColumn(name = "contract_id", nullable = false)
+    @JsonBackReference
     private Contract contract;
 }
