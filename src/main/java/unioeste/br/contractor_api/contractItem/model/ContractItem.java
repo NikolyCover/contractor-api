@@ -2,6 +2,9 @@ package unioeste.br.contractor_api.contractItem.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import unioeste.br.contractor_api.contract.model.Contract;
+import unioeste.br.contractor_api.contractType.model.ContractType;
+
 import java.time.LocalDate;
 
 @Entity
@@ -20,4 +23,12 @@ public class ContractItem {
     private LocalDate scheduledDate;
 
     private LocalDate finishedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "contract_id", nullable = true)
+    private Contract contract;
+
+    @ManyToOne
+    @JoinColumn(name = "contract_type_id", nullable = true)
+    private ContractType contractType;
 }

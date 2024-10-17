@@ -3,14 +3,14 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'contractor-db'
+      MYSQL_DATABASE: 'contractor'
       MYSQL_USER: 'admin'
       MYSQL_PASSWORD: 'admin'
       MYSQL_ROOT_PASSWORD: 'admin'
     ports:
-      - '3307:3306'
+      - '3306:3306'
     expose:
-      - '3307'
+      - '3306'
     volumes:
       - my-db:/var/lib/mysql
 volumes:
