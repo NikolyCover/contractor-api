@@ -16,19 +16,19 @@ public class ContractedCompanyService {
     @Autowired
     private ContractedCompanyRepository repository;
 
-    public List<ContractedCompany> getAllContractedCompanies() {
+    public List<ContractedCompany> findAll() {
         return repository.findAll();
     }
 
-    public Optional<ContractedCompany> getContractedCompanyById(Long id) {
+    public Optional<ContractedCompany> findById(Long id) {
         return repository.findById(id);
     }
 
-    public ContractedCompany createContractedCompany(ContractedCompany company) {
+    public ContractedCompany save(ContractedCompany company) {
         return repository.save(company);
     }
 
-    public Optional<ContractedCompany> updateContractedCompany(Long id, ContractedCompany companyDetails) {
+    public Optional<ContractedCompany> update(Long id, ContractedCompany companyDetails) {
         return repository.findById(id).map(company -> {
             company.setName(companyDetails.getName());
             company.setCorporateName(companyDetails.getCorporateName());
@@ -40,7 +40,7 @@ public class ContractedCompanyService {
         });
     }
 
-    public void deleteContractedCompany(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }

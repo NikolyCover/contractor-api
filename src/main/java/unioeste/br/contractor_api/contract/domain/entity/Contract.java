@@ -1,8 +1,8 @@
-package unioeste.br.contractor_api.contract.model;
+package unioeste.br.contractor_api.contract.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import unioeste.br.contractor_api.contractItem.model.ContractItem;
+import unioeste.br.contractor_api.contractItem.domain.entity.ContractItem;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
@@ -11,7 +11,7 @@ import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
 import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -31,10 +31,10 @@ public class Contract {
     private String contractObjective;
 
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private LocalDate endDate;
 
     private Double contractedValue;
 
@@ -65,9 +65,9 @@ public class Contract {
     private ContractedCompanyEmployee legalRepresentative;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.UNDER_CONTRACT;
 
-    private Double financialProgress;
+    private Double financialProgress = 0.0;
 
     @OneToMany(mappedBy = "contract")
     private List<Installment> installments;

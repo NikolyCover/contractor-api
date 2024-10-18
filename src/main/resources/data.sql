@@ -1,3 +1,17 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE installment;
+TRUNCATE TABLE contract;
+TRUNCATE TABLE contract_item;
+TRUNCATE TABLE contracted_company;
+TRUNCATE TABLE contracted_company_employee;
+TRUNCATE TABLE contract_type;
+TRUNCATE TABLE hiring_company;
+TRUNCATE TABLE hiring_company_employee;
+TRUNCATE TABLE payment_method;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 INSERT INTO hiring_company (name, corporate_name, code, phone, email, address, matrix)
 VALUES
     ('Tech Solutions Ltda', 'Tech Solutions Tecnologia da Informação Ltda', 'TS123456', '11-98765-4321', 'contato@techsolutions.com.br', 'Rua das Inovações, 100, São Paulo, SP', true),

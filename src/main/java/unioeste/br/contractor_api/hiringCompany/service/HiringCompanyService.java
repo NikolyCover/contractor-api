@@ -16,19 +16,19 @@ public class HiringCompanyService {
     @Autowired
     private HiringCompanyRepository repository;
 
-    public List<HiringCompany> getAllHiringCompanies() {
+    public List<HiringCompany> findAll() {
         return repository.findAll();
     }
 
-    public Optional<HiringCompany> getHiringCompanyById(Long id) {
+    public Optional<HiringCompany> findById(Long id) {
         return repository.findById(id);
     }
 
-    public HiringCompany createHiringCompany(HiringCompany company) {
+    public HiringCompany save(HiringCompany company) {
         return repository.save(company);
     }
 
-    public Optional<HiringCompany> updateHiringCompany(Long id, HiringCompany companyDetails) {
+    public Optional<HiringCompany> update(Long id, HiringCompany companyDetails) {
         return repository.findById(id).map(company -> {
             company.setName(companyDetails.getName());
             company.setCorporateName(companyDetails.getCorporateName());

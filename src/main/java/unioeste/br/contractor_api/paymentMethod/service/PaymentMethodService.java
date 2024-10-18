@@ -14,23 +14,23 @@ public class PaymentMethodService {
     @Autowired
     private PaymentMethodRepository repository;
 
-    public List<PaymentMethod> getAllPaymentMethods() {
+    public List<PaymentMethod> findAll() {
         return repository.findAll();
     }
 
-    public Optional<PaymentMethod> getPaymentMethodById(Long id) {
+    public Optional<PaymentMethod> findById(Long id) {
         return repository.findById(id);
     }
 
-    public PaymentMethod createPaymentMethod(PaymentMethod paymentMethod) {
+    public PaymentMethod save(PaymentMethod paymentMethod) {
         return repository.save(paymentMethod);
     }
 
-    public void deletePaymentMethod(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public PaymentMethod updatePaymentMethod(Long id, PaymentMethod updatedPaymentMethod) {
+    public PaymentMethod update(Long id, PaymentMethod updatedPaymentMethod) {
         return repository.findById(id).map(paymentMethod -> {
             paymentMethod.setName(updatedPaymentMethod.getName());
             paymentMethod.setFrequency(updatedPaymentMethod.getFrequency());

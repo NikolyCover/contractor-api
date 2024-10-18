@@ -17,29 +17,29 @@ public class PaymentMethodController {
 
     @GetMapping
     public List<PaymentMethod> getAllPaymentMethods() {
-        return service.getAllPaymentMethods();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentMethod> getPaymentMethodById(@PathVariable Long id) {
-        return service.getPaymentMethodById(id)
+        return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public PaymentMethod createPaymentMethod(@RequestBody PaymentMethod paymentMethod) {
-        return service.createPaymentMethod(paymentMethod);
+        return service.save(paymentMethod);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PaymentMethod> updatePaymentMethod(@PathVariable Long id, @RequestBody PaymentMethod paymentMethod) {
-        return ResponseEntity.ok(service.updatePaymentMethod(id, paymentMethod));
+        return ResponseEntity.ok(service.update(id, paymentMethod));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePaymentMethod(@PathVariable Long id) {
-        service.deletePaymentMethod(id);
+        service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

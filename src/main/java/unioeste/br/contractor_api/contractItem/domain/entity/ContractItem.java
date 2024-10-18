@@ -1,9 +1,9 @@
-package unioeste.br.contractor_api.contractItem.model;
+package unioeste.br.contractor_api.contractItem.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import unioeste.br.contractor_api.contract.model.Contract;
+import unioeste.br.contractor_api.contract.domain.entity.Contract;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 
 import java.time.LocalDate;

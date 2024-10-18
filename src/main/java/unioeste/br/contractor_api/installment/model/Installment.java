@@ -3,7 +3,7 @@ package unioeste.br.contractor_api.installment.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import unioeste.br.contractor_api.contract.model.Contract;
+import unioeste.br.contractor_api.contract.domain.entity.Contract;
 
 import java.time.LocalDate;
 

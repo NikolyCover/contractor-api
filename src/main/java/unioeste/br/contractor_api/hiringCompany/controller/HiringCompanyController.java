@@ -18,23 +18,23 @@ public class HiringCompanyController {
 
     @GetMapping
     public List<HiringCompany> getAllCompanies() {
-        return service.getAllHiringCompanies();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HiringCompany> getCompanyById(@PathVariable Long id) {
-        Optional<HiringCompany> company = service.getHiringCompanyById(id);
+        Optional<HiringCompany> company = service.findById(id);
         return company.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public HiringCompany createCompany(@RequestBody HiringCompany company) {
-        return service.createHiringCompany(company);
+        return service.save(company);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<HiringCompany> updateCompany(@PathVariable Long id, @RequestBody HiringCompany companyDetails) {
-        Optional<HiringCompany> updatedCompany = service.updateHiringCompany(id, companyDetails);
+        Optional<HiringCompany> updatedCompany = service.update(id, companyDetails);
         return updatedCompany.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

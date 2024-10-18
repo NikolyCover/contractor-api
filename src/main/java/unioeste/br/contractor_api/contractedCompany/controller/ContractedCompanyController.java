@@ -18,29 +18,29 @@ public class ContractedCompanyController {
 
     @GetMapping
     public List<ContractedCompany> getAllCompanies() {
-        return service.getAllContractedCompanies();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ContractedCompany> getCompanyById(@PathVariable Long id) {
-        Optional<ContractedCompany> company = service.getContractedCompanyById(id);
+        Optional<ContractedCompany> company = service.findById(id);
         return company.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ContractedCompany createCompany(@RequestBody ContractedCompany company) {
-        return service.createContractedCompany(company);
+        return service.save(company);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ContractedCompany> updateCompany(@PathVariable Long id, @RequestBody ContractedCompany companyDetails) {
-        Optional<ContractedCompany> updatedCompany = service.updateContractedCompany(id, companyDetails);
+        Optional<ContractedCompany> updatedCompany = service.update(id, companyDetails);
         return updatedCompany.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
-        service.deleteContractedCompany(id);
+        service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

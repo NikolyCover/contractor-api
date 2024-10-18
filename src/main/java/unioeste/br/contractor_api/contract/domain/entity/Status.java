@@ -1,4 +1,4 @@
-package unioeste.br.contractor_api.contract.model;
+package unioeste.br.contractor_api.contract.domain.entity;
 
 public enum Status {
     IN_PROGRESS,
