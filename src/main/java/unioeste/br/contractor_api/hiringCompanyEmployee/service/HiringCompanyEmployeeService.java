@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.hiringCompanyEmployee.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
 import unioeste.br.contractor_api.hiringCompanyEmployee.repository.HiringCompanyEmployeeRepository;
@@ -14,12 +16,12 @@ public class HiringCompanyEmployeeService {
     @Autowired
     private HiringCompanyEmployeeRepository repository;
 
-    public List<HiringCompanyEmployee> findAll() {
-        return repository.findAll();
+    public Page<HiringCompanyEmployee> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public List<HiringCompanyEmployee> findByCompanyId(Long companyId) {
-        return repository.findByCompanyId(companyId);
+    public Page<HiringCompanyEmployee> findByCompanyId(Long companyId, Pageable pageable) {
+        return repository.findByCompanyId(companyId, pageable);
     }
 
     public Optional<HiringCompanyEmployee> findById(Long id) {

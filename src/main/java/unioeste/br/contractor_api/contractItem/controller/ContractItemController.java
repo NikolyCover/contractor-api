@@ -1,12 +1,12 @@
 package unioeste.br.contractor_api.contractItem.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractItem.domain.entity.ContractItem;
 import unioeste.br.contractor_api.contractItem.service.ContractItemService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/contract-item")
@@ -16,8 +16,8 @@ public class ContractItemController {
     private final ContractItemService contractItemService;
 
     @GetMapping
-    public List<ContractItem> getAllContractItems() {
-        return contractItemService.findAll();
+    public Page<ContractItem> getAllContractItems(Pageable pageable) {
+        return contractItemService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.installment.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import unioeste.br.contractor_api.contract.domain.entity.Contract;
 import unioeste.br.contractor_api.installment.model.Installment;
@@ -17,8 +19,8 @@ public class InstallmentService {
 
     private final InstallmentRepository installmentRepository;
 
-    public List<Installment> findAll() {
-        return installmentRepository.findAll();
+    public Page<Installment> findAll(Pageable pageable) {
+        return installmentRepository.findAll(pageable);
     }
 
     public Installment save(Installment installment) {

@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.contractedCompanyEmployee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
@@ -17,12 +19,12 @@ public class ContractedCompanyEmployeeController {
     private ContractedCompanyEmployeeService service;
 
     @GetMapping
-    public List<ContractedCompanyEmployee> getAllEmployees(@RequestParam(required = false) Long companyId ) {
+    public Page<ContractedCompanyEmployee> getAllEmployees(Pageable pageable, @RequestParam(required = false) Long companyId ) {
         if(companyId != null) {
-            return service.findByCompanyId(companyId);
+            return service.findByCompanyId(companyId, pageable);
         }
 
-        return service.findAll();
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

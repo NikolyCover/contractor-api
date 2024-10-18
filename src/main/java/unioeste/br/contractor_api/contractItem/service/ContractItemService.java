@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.contractItem.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import unioeste.br.contractor_api.contract.domain.entity.Contract;
 import unioeste.br.contractor_api.contractItem.domain.dto.ContractItemFormDTO;
@@ -16,8 +18,8 @@ public class ContractItemService {
 
     private final ContractItemRepository contractItemRepository;
 
-    public List<ContractItem> findAll() {
-        return contractItemRepository.findAll();
+    public Page<ContractItem> findAll(Pageable pageable) {
+        return contractItemRepository.findAll(pageable);
     }
 
     public Optional<ContractItem> getById(Long id) {

@@ -1,12 +1,12 @@
 package unioeste.br.contractor_api.contract.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import unioeste.br.contractor_api.contract.domain.dto.ContractFormDTO;
 import unioeste.br.contractor_api.contract.domain.entity.Contract;
 import unioeste.br.contractor_api.contract.repository.ContractRepository;
-import unioeste.br.contractor_api.contractItem.domain.dto.ContractItemFormDTO;
-import unioeste.br.contractor_api.contractItem.domain.entity.ContractItem;
 import unioeste.br.contractor_api.contractItem.service.ContractItemService;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
@@ -15,7 +15,6 @@ import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -25,8 +24,8 @@ public class ContractService {
 
     private ContractItemService contractItemService;
 
-    public List<Contract> findAll() {
-        return repository.findAll();
+    public Page<Contract> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Optional<Contract> findById(Long id) {

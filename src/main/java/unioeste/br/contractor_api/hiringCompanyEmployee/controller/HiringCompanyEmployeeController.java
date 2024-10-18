@@ -1,12 +1,13 @@
 package unioeste.br.contractor_api.hiringCompanyEmployee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
 import unioeste.br.contractor_api.hiringCompanyEmployee.service.HiringCompanyEmployeeService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,11 +18,11 @@ public class HiringCompanyEmployeeController {
     private HiringCompanyEmployeeService service;
 
     @GetMapping
-    public List<HiringCompanyEmployee> getAllEmployees(@RequestParam(required = false) Long companyId) {
+    public Page<HiringCompanyEmployee> getAllEmployees(Pageable pageable, @RequestParam(required = false) Long companyId) {
         if(companyId != null) {
-            return service.findByCompanyId(companyId);
+            return service.findByCompanyId(companyId, pageable);
         }
-        return service.findAll();
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

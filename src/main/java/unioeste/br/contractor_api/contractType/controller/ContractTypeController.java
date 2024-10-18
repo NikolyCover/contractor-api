@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.contractType.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractType.model.ContractType;
@@ -17,8 +19,8 @@ public class ContractTypeController {
     private ContractTypeService service;
 
     @GetMapping
-    public List<ContractType> getAllContractTypes() {
-        return service.findAll();
+    public Page<ContractType> getAllContractTypes(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

@@ -1,12 +1,12 @@
 package unioeste.br.contractor_api.paymentMethod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 import unioeste.br.contractor_api.paymentMethod.service.PaymentMethodService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/payment-method")
@@ -16,8 +16,8 @@ public class PaymentMethodController {
     private PaymentMethodService service;
 
     @GetMapping
-    public List<PaymentMethod> getAllPaymentMethods() {
-        return service.findAll();
+    public Page<PaymentMethod> getAllPaymentMethods(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

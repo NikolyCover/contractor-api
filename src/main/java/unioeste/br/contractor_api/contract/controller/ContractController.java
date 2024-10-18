@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.contract.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contract.domain.dto.ContractFormDTO;
@@ -21,7 +23,6 @@ import unioeste.br.contractor_api.installment.service.InstallmentService;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 import unioeste.br.contractor_api.paymentMethod.service.PaymentMethodService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,8 +41,8 @@ public class ContractController {
     private ContractItemService contractItemService;
 
     @GetMapping
-    public List<Contract> getAllContracts() {
-        return service.findAll();
+    public Page<Contract> getAllContracts(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

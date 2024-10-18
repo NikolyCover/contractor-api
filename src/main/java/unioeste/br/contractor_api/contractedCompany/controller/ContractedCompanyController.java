@@ -1,12 +1,13 @@
 package unioeste.br.contractor_api.contractedCompany.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
 import unioeste.br.contractor_api.contractedCompany.service.ContractedCompanyService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,8 +18,8 @@ public class ContractedCompanyController {
     private ContractedCompanyService service;
 
     @GetMapping
-    public List<ContractedCompany> getAllCompanies() {
-        return service.findAll();
+    public Page<ContractedCompany> getAllCompanies(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

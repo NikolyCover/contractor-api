@@ -1,12 +1,13 @@
 package unioeste.br.contractor_api.hiringCompany.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
 import unioeste.br.contractor_api.hiringCompany.service.HiringCompanyService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,8 +18,8 @@ public class HiringCompanyController {
     private HiringCompanyService service;
 
     @GetMapping
-    public List<HiringCompany> getAllCompanies() {
-        return service.findAll();
+    public Page<HiringCompany> getAllCompanies(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

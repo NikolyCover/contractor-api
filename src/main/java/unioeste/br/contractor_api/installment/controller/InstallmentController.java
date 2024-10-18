@@ -1,6 +1,8 @@
 package unioeste.br.contractor_api.installment.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,8 @@ public class InstallmentController {
     private final InstallmentService installmentService;
 
     @GetMapping
-    public ResponseEntity<List<Installment>> getAllInstallments() {
-        return new ResponseEntity<>(installmentService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Page<Installment>> getAllInstallments(Pageable pageable) {
+        return new ResponseEntity<>(installmentService.findAll(pageable), HttpStatus.OK);
     }
 
     @PostMapping
