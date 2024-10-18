@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractItem.domain.entity.ContractItem;
 import unioeste.br.contractor_api.contractItem.service.ContractItemService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/contract-item")
 @RequiredArgsConstructor

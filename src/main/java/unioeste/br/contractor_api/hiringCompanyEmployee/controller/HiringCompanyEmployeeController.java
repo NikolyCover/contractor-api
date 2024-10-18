@@ -10,6 +10,7 @@ import unioeste.br.contractor_api.hiringCompanyEmployee.service.HiringCompanyEmp
 
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("hiring-company-employee")
 public class HiringCompanyEmployeeController {

@@ -25,6 +25,7 @@ import unioeste.br.contractor_api.paymentMethod.service.PaymentMethodService;
 
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/contract")
 @AllArgsConstructor

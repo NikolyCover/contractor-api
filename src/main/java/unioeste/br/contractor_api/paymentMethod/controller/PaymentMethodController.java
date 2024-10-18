@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 import unioeste.br.contractor_api.paymentMethod.service.PaymentMethodService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/payment-method")
 public class PaymentMethodController {

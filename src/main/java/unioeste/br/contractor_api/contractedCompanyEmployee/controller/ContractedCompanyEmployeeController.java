@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
 import unioeste.br.contractor_api.contractedCompanyEmployee.service.ContractedCompanyEmployeeService;
 
-import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/contracted-company-employee")
 public class ContractedCompanyEmployeeController {

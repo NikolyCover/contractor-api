@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import unioeste.br.contractor_api.installment.model.Installment;
 import unioeste.br.contractor_api.installment.service.InstallmentService;
 
-import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/installment")
 @RequiredArgsConstructor

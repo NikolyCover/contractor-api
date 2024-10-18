@@ -11,6 +11,7 @@ import unioeste.br.contractor_api.contractType.service.ContractTypeService;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/contract-type")
 public class ContractTypeController {
