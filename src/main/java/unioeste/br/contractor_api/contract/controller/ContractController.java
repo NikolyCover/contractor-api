@@ -52,6 +52,11 @@ public class ContractController {
         return contract.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/string")
+    public String getStringContractById(@PathVariable Long id) {
+        return service.getStringContractById(id);
+    }
+
     @PostMapping
     public Contract createContract(@RequestBody ContractFormDTO contractFormDTO) {
         ContractType contractType = contractTypeService.findById(contractFormDTO.getContractTypeId()).orElse(null);

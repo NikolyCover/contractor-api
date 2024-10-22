@@ -15,8 +15,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,4 +77,45 @@ public class Contract {
 
     @OneToMany(mappedBy = "contract")
     private List<ContractItem> contractItems;
+
+    @Override
+    public String toString() {
+        StringBuilder installmentsList = new StringBuilder();
+        if (installments != null && !installments.isEmpty()) {
+            installmentsList.append("\nParcelas:");
+            for (Installment installment : installments) {
+                installmentsList.append(String.format("\n - ID: %d, Valor: R$ %.2f, Data de pagamento programada: %s, Data de pagamento: %s, Recibo emitido: %s",
+                        installment.getId(),
+                        installment.getValue(),
+                        installment.getScheduledPaymentDate(),
+                        installment.getPaymentDate() != null ? installment.getPaymentDate() : "não paga",
+                        installment.getPaymentReceiptURL() != null ? "sim" : "não"));
+            }
+        }
+
+        StringBuilder contractItemsList = new StringBuilder();
+        if (contractItems != null && !contractItems.isEmpty()) {
+            contractItemsList.append("\nItens do Contrato:");
+            for (ContractItem contractItem : contractItems) {
+                contractItemsList.append(String.format("\n - ID: %d, Nome: %s, Tipo: %s",
+                        contractItem.getId(),
+                        contractItem.getName(),
+                        contractItem.getType()));
+            }
+        }
+
+        return String.format("Aqui está o contrato de ID %d:\n\n" +
+                        "Intitulado %s, do tipo %s. O objetivo desse contrato é '%s'. " +
+                        "Ele começa em %s e termina em %s. O valor total contratado é de R$ %.2f, " +
+                        "e o método de pagamento utilizado é %s. " +
+                        "A execução ocorrerá em %s. " +
+                        "A empresa subsidiária responsável é a %s, gerenciada por %s. " +
+                        "A empresa contratada é a %s, representada legalmente por %s. " +
+                        "O status atual do contrato é %s e o progresso financeiro é de %.2f%%.\n%s\n%s",
+                id, name, contractType.getName(), contractObjective, startDate, endDate, contractedValue,
+                paymentMethod.getName(), executionLocal,
+                subsidiaryCompany.getName(), contractManager.getName(),
+                contractedCompany.getName(), legalRepresentative.getName(),
+                status, financialProgress, installmentsList, contractItemsList);
+    }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import unioeste.br.contractor_api.contract.domain.dto.ContractFormDTO;
 import unioeste.br.contractor_api.contract.domain.entity.Contract;
 import unioeste.br.contractor_api.contract.repository.ContractRepository;
-import unioeste.br.contractor_api.contractItem.service.ContractItemService;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
@@ -22,14 +21,18 @@ import java.util.Optional;
 public class ContractService {
     private ContractRepository repository;
 
-    private ContractItemService contractItemService;
-
     public Page<Contract> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     public Optional<Contract> findById(Long id) {
         return repository.findById(id);
+    }
+
+    public String getStringContractById(Long id) {
+        Optional<Contract> optionalContract = repository.findById(id);
+        return optionalContract.map(Contract::toString)
+                .orElse("Desculpe mas não encontrei esse contrato!");
     }
 
     public Contract save(ContractFormDTO contractFormDTO, ContractType contractType, PaymentMethod paymentMethod, HiringCompany subsidiaryCompany, HiringCompanyEmployee contractManager, ContractedCompany contractedCompany, ContractedCompanyEmployee legalRepresentative) {
