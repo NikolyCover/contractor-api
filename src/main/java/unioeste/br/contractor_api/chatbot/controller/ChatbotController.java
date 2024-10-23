@@ -6,6 +6,7 @@ import unioeste.br.contractor_api.chatbot.service.ChatbotService;
 
 import java.io.IOException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/chatbot")
 public class ChatbotController {
