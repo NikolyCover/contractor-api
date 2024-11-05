@@ -1,12 +1,12 @@
-package unioeste.br.contractor_api.contractedCompany.controller;
+package unioeste.br.contractor_api.company.contractedCompany.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
-import unioeste.br.contractor_api.contractedCompany.service.ContractedCompanyService;
+import unioeste.br.contractor_api.company.contractedCompany.domain.entity.ContractedCompany;
+import unioeste.br.contractor_api.company.contractedCompany.service.ContractedCompanyService;
 
 import java.util.Optional;
 

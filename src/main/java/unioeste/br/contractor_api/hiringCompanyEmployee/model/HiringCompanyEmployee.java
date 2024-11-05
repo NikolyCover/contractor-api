@@ -2,7 +2,7 @@ package unioeste.br.contractor_api.hiringCompanyEmployee.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
+import unioeste.br.contractor_api.company.hiringCompany.domain.entity.HiringCompany;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor

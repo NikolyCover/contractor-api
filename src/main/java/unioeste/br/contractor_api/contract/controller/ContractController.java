@@ -11,12 +11,12 @@ import unioeste.br.contractor_api.contract.service.ContractService;
 import unioeste.br.contractor_api.contractItem.service.ContractItemService;
 import unioeste.br.contractor_api.contractType.model.ContractType;
 import unioeste.br.contractor_api.contractType.service.ContractTypeService;
-import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
-import unioeste.br.contractor_api.contractedCompany.service.ContractedCompanyService;
+import unioeste.br.contractor_api.company.contractedCompany.domain.entity.ContractedCompany;
+import unioeste.br.contractor_api.company.contractedCompany.service.ContractedCompanyService;
 import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedCompanyEmployee;
 import unioeste.br.contractor_api.contractedCompanyEmployee.service.ContractedCompanyEmployeeService;
-import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
-import unioeste.br.contractor_api.hiringCompany.service.HiringCompanyService;
+import unioeste.br.contractor_api.company.hiringCompany.domain.entity.HiringCompany;
+import unioeste.br.contractor_api.company.hiringCompany.service.HiringCompanyService;
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
 import unioeste.br.contractor_api.hiringCompanyEmployee.service.HiringCompanyEmployeeService;
 import unioeste.br.contractor_api.installment.service.InstallmentService;
@@ -43,18 +43,18 @@ public class ContractController {
 
     @GetMapping
     public Page<Contract> getAllContracts(Pageable pageable) {
-        return service.getAllContracts(pageable);
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Contract> getContractById(@PathVariable Long id) {
-        Optional<Contract> contract = service.getContractById(id);
+        Optional<Contract> contract = service.findById(id);
         return contract.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/string")
     public String getStringContractById(@PathVariable Long id) {
-        return service.getContractByIdAsString(id);
+        return service.findByIdAsString(id);
     }
 
     @PostMapping

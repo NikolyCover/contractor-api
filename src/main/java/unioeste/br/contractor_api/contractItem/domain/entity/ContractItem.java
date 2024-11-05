@@ -33,4 +33,11 @@ public class ContractItem {
     @ManyToOne
     @JoinColumn(name = "contract_type_id", nullable = true)
     private ContractType contractType;
+
+    public String getTypeAsString() {
+        return switch (type) {
+            case DELIVERY -> "Entrega";
+            case SERVICE -> "Serviço";
+        };
+    }
 }

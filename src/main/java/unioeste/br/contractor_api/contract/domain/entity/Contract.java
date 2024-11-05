@@ -8,10 +8,11 @@ import unioeste.br.contractor_api.contractedCompanyEmployee.model.ContractedComp
 import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmployee;
 import unioeste.br.contractor_api.installment.model.Installment;
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
-import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
-import unioeste.br.contractor_api.hiringCompany.model.HiringCompany;
+import unioeste.br.contractor_api.company.contractedCompany.domain.entity.ContractedCompany;
+import unioeste.br.contractor_api.company.hiringCompany.domain.entity.HiringCompany;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -78,6 +79,17 @@ public class Contract {
     @OneToMany(mappedBy = "contract")
     private List<ContractItem> contractItems;
 
+    private static final DateTimeFormatter BRAZILIAN_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private String getStatusAsString() {
+        return switch (status) {
+            case IN_PROGRESS -> "Em Andamento";
+            case UNDER_CONTRACT -> "Em Contratação";
+            case CANCELED -> "Cancelado";
+            case PARALYZED -> "Paralisado";
+        };
+    }
+    
     @Override
     public String toString() {
         StringBuilder installmentsList = new StringBuilder();
@@ -87,8 +99,8 @@ public class Contract {
                 installmentsList.append(String.format("\n\t - ID: %d, Valor: R$ %.2f, Data de pagamento programada: %s, Data de pagamento: %s, Recibo emitido: %s",
                         installment.getId(),
                         installment.getValue(),
-                        installment.getScheduledPaymentDate(),
-                        installment.getPaymentDate() != null ? installment.getPaymentDate() : "não paga",
+                        installment.getScheduledPaymentDate().format(BRAZILIAN_DATE_FORMAT),
+                        installment.getPaymentDate() != null ? installment.getPaymentDate().format(BRAZILIAN_DATE_FORMAT) : "não paga",
                         installment.getPaymentReceiptURL() != null ? "sim" : "não"));
             }
         }
@@ -100,7 +112,7 @@ public class Contract {
                 contractItemsList.append(String.format("\n\t - ID: %d, Nome: %s, Tipo: %s",
                         contractItem.getId(),
                         contractItem.getName(),
-                        contractItem.getType()));
+                        contractItem.getTypeAsString() ));
             }
         }
 
@@ -116,7 +128,7 @@ public class Contract {
                 paymentMethod.getName(), executionLocal,
                 subsidiaryCompany.getName(), contractManager.getName(),
                 contractedCompany.getName(), legalRepresentative.getName(),
-                status, financialProgress, installmentsList, contractItemsList);
+                getStatusAsString(), financialProgress, installmentsList, contractItemsList);
     }
 
     public String toSummaryString() {
@@ -133,13 +145,13 @@ public class Contract {
                 id,
                 name,
                 contractType.getName(),
-                startDate,
-                endDate,
+                startDate.format(BRAZILIAN_DATE_FORMAT),
+                endDate.format(BRAZILIAN_DATE_FORMAT),
                 contractedValue,
                 executionLocal,
                 subsidiaryCompany.getName(),
                 contractedCompany.getName(),
-                status,
+                getStatusAsString(),
                 financialProgress
         );
     }

@@ -1,14 +1,15 @@
-package unioeste.br.contractor_api.contractedCompany.service;
+package unioeste.br.contractor_api.company.contractedCompany.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import unioeste.br.contractor_api.contractedCompany.model.ContractedCompany;
-import unioeste.br.contractor_api.contractedCompany.repository.ContractedCompanyRepository;
+import unioeste.br.contractor_api.company.contractedCompany.domain.entity.ContractedCompany;
+import unioeste.br.contractor_api.company.contractedCompany.repository.ContractedCompanyRepository;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -43,5 +44,12 @@ public class ContractedCompanyService {
 
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    public String findAllAsString() {
+        return "Aqui estão os dados das empresas contratadas que constam no sistema:\n\n" +
+                repository.findAll().stream()
+                        .map(ContractedCompany::toString)
+                        .collect(Collectors.joining("\n\n"));
     }
 }

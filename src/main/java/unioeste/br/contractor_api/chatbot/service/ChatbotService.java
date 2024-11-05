@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import unioeste.br.contractor_api.company.hiringCompany.service.HiringCompanyService;
 import unioeste.br.contractor_api.contract.service.ContractService;
+import unioeste.br.contractor_api.company.contractedCompany.service.ContractedCompanyService;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +16,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
-
 
 @Service
 public class ChatbotService {
@@ -28,7 +29,13 @@ public class ChatbotService {
     @Autowired
     private ContractService contractService;
 
-    private final String initialInstructions = "Você é o assistente virtual do sistema Contractor - um sistema gerenciador de contratos de uma empresa que realiza diversas ações e rotias através de contratos. Por exemplo, construindo alguma obra, adquirindo algum software, contratnado serviços e etc. Dessa forma, só responda perguntas relacionadas a isso e em português do Brasil. Não assuma nada. Quando te perguntarem algo que você não pode responder peça desculpas e diga o porquê. As coisas que você pode fazer são mostrar dados de um contrato a partir do código dele. Agora o usuário irá falar com você. ";
+    @Autowired
+    private ContractedCompanyService contractedCompanyService;
+
+    @Autowired
+    private HiringCompanyService hiringCompanyService;
+
+    private final String initialInstructions = "Você é o assistente virtual do sistema Contractor - um sistema gerenciador de contratos de uma empresa que realiza diversas ações e rotias através de contratos. Por exemplo, construindo alguma obra, adquirindo algum software, contratnado serviços e etc. Dessa forma, só responda perguntas relacionadas a isso e em português do Brasil. Não assuma nada. Quando te perguntarem algo que você não pode responder peça desculpas e diga o porquê. As coisas que você pode fazer são mostrar dados de um contrato a partir do código dele, mostrar todos os contratos, mostrar contratos a partir do código de uma empresa contratante ou contratada, mostrar todas as empresas contratadas e mostrar todas as empresas contratantes. Agora o usuário irá falar com você. ";
 
     public String sendMessage(String message) throws IOException, InterruptedException {
         String responseBody = sendRequest(message);
@@ -80,6 +87,42 @@ public class ChatbotService {
                                 Map.of(
                                         "name", "getContracts",
                                         "description", "Retorna todos os contratos do sistema, mostrando um resumo das infomações de cada um."
+                                ),
+                                Map.of(
+                                        "name", "getContractsByContractedCompanyId",
+                                        "description", "Retorna todos os contratos da empresa contratada fornecida pelo usuário, mostrando um resumo das infomações de cada um.",
+                                        "parameters", Map.of(
+                                                "type", "object",
+                                                "properties", Map.of(
+                                                        "contractedCompanyId", Map.of(
+                                                                "type", "integer",
+                                                                "description", "O id da empresa contratada para o qual você deseja ver os contratos"
+                                                        )
+                                                ),
+                                                "required", List.of("contractedCompanyId")
+                                        )
+                                ),
+                                Map.of(
+                                        "name", "getContractsBySubsidiaryCompanyId",
+                                        "description", "Retorna todos os contratos da empresa contratante fornecida pelo usuário, mostrando um resumo das infomações de cada um.",
+                                        "parameters", Map.of(
+                                                "type", "object",
+                                                "properties", Map.of(
+                                                        "subsidiaryCompanyId", Map.of(
+                                                                "type", "integer",
+                                                                "description", "O id da empresa contratante para o qual você deseja ver os contratos"
+                                                        )
+                                                ),
+                                                "required", List.of("subsidiaryCompanyId")
+                                        )
+                                ),
+                                Map.of(
+                                        "name", "getContractedCompanies",
+                                        "description", "Retorna todos as empresas contratadas do sistema, mostrando um resumo das infomações de cada uma."
+                                ),
+                                Map.of(
+                                        "name", "getHiringCompanies",
+                                        "description", "Retorna todos as empresas contratantes do sistema, mostrando um resumo das infomações de cada uma."
                                 )
                         )
                 )
@@ -126,11 +169,29 @@ public class ChatbotService {
 
         if ("getStringContractById".equals(functionName)) {
             int contractId = argsNode.path("contractId").asInt();
-            return contractService.getContractByIdAsString((long) contractId);
+            return contractService.findByIdAsString((long) contractId);
         }
 
         if("getContracts".equals(functionName)) {
-            return contractService.getAllContractsAsString();
+            return contractService.findAllAsString();
+        }
+
+        if("getContractedCompanies".equals(functionName)) {
+            return contractedCompanyService.findAllAsString();
+        }
+
+        if("getHiringCompanies".equals(functionName)) {
+            return hiringCompanyService.findAllAsString();
+        }
+
+        if("getContractsByContractedCompanyId".equals(functionName)) {
+            int contractedCompanyId = argsNode.path("contractedCompanyId").asInt();
+            return contractService.findByContractedCompanyIdAsString((long) contractedCompanyId);
+        }
+
+        if("getContractsBySubsidiaryCompanyId".equals(functionName)) {
+            int subsidiaryCompanyId = argsNode.path("subsidiaryCompanyId").asInt();
+            return contractService.findBySubsidiaryCompanyIdAsString((long) subsidiaryCompanyId);
         }
 
         return null;
