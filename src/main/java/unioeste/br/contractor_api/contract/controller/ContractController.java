@@ -43,18 +43,18 @@ public class ContractController {
 
     @GetMapping
     public Page<Contract> getAllContracts(Pageable pageable) {
-        return service.findAll(pageable);
+        return service.getAllContracts(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Contract> getContractById(@PathVariable Long id) {
-        Optional<Contract> contract = service.findById(id);
+        Optional<Contract> contract = service.getContractById(id);
         return contract.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/string")
     public String getStringContractById(@PathVariable Long id) {
-        return service.getStringContractById(id);
+        return service.getContractByIdAsString(id);
     }
 
     @PostMapping

@@ -84,7 +84,7 @@ public class Contract {
         if (installments != null && !installments.isEmpty()) {
             installmentsList.append("\nParcelas:");
             for (Installment installment : installments) {
-                installmentsList.append(String.format("\n - ID: %d, Valor: R$ %.2f, Data de pagamento programada: %s, Data de pagamento: %s, Recibo emitido: %s",
+                installmentsList.append(String.format("\n\t - ID: %d, Valor: R$ %.2f, Data de pagamento programada: %s, Data de pagamento: %s, Recibo emitido: %s",
                         installment.getId(),
                         installment.getValue(),
                         installment.getScheduledPaymentDate(),
@@ -97,7 +97,7 @@ public class Contract {
         if (contractItems != null && !contractItems.isEmpty()) {
             contractItemsList.append("\nItens do Contrato:");
             for (ContractItem contractItem : contractItems) {
-                contractItemsList.append(String.format("\n - ID: %d, Nome: %s, Tipo: %s",
+                contractItemsList.append(String.format("\n\t - ID: %d, Nome: %s, Tipo: %s",
                         contractItem.getId(),
                         contractItem.getName(),
                         contractItem.getType()));
@@ -117,5 +117,30 @@ public class Contract {
                 subsidiaryCompany.getName(), contractManager.getName(),
                 contractedCompany.getName(), legalRepresentative.getName(),
                 status, financialProgress, installmentsList, contractItemsList);
+    }
+
+    public String toSummaryString() {
+        return String.format(
+                "ID: %d\n" +
+                        "Nome: %s\n" +
+                        "Tipo: %s\n" +
+                        "Período: %s - %s\n" +
+                        "Valor: R$ %.2f\n" +
+                        "Local de Execução: %s\n" +
+                        "Empresa Contratante: %s\n" +
+                        "Empresa Contratada: %s\n" +
+                        "Status: %s | Progresso Financeiro: %.2f%%\n",
+                id,
+                name,
+                contractType.getName(),
+                startDate,
+                endDate,
+                contractedValue,
+                executionLocal,
+                subsidiaryCompany.getName(),
+                contractedCompany.getName(),
+                status,
+                financialProgress
+        );
     }
 }

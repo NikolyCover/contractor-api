@@ -15,24 +15,32 @@ import unioeste.br.contractor_api.hiringCompanyEmployee.model.HiringCompanyEmplo
 import unioeste.br.contractor_api.paymentMethod.model.PaymentMethod;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class ContractService {
     private ContractRepository repository;
 
-    public Page<Contract> findAll(Pageable pageable) {
+    public Page<Contract> getAllContracts(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public Optional<Contract> findById(Long id) {
+    public Optional<Contract> getContractById(Long id) {
         return repository.findById(id);
     }
 
-    public String getStringContractById(Long id) {
+    public String getContractByIdAsString(Long id) {
         Optional<Contract> optionalContract = repository.findById(id);
         return optionalContract.map(Contract::toString)
                 .orElse("Desculpe mas não encontrei esse contrato!");
+    }
+
+    public String getAllContractsAsString() {
+        return "Aqui estão os dados dos contratos que constam no sistema:\n\n" +
+                repository.findAll().stream()
+                        .map(Contract::toSummaryString)
+                        .collect(Collectors.joining("\n\n"));
     }
 
     public Contract save(ContractFormDTO contractFormDTO, ContractType contractType, PaymentMethod paymentMethod, HiringCompany subsidiaryCompany, HiringCompanyEmployee contractManager, ContractedCompany contractedCompany, ContractedCompanyEmployee legalRepresentative) {

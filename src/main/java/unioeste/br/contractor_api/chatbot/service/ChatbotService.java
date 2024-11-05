@@ -76,6 +76,10 @@ public class ChatbotService {
                                                 ),
                                                 "required", List.of("contractId")
                                         )
+                                ),
+                                Map.of(
+                                        "name", "getContracts",
+                                        "description", "Retorna todos os contratos do sistema, mostrando um resumo das infomações de cada um."
                                 )
                         )
                 )
@@ -122,7 +126,11 @@ public class ChatbotService {
 
         if ("getStringContractById".equals(functionName)) {
             int contractId = argsNode.path("contractId").asInt();
-            return contractService.getStringContractById((long) contractId);
+            return contractService.getContractByIdAsString((long) contractId);
+        }
+
+        if("getContracts".equals(functionName)) {
+            return contractService.getAllContractsAsString();
         }
 
         return null;
