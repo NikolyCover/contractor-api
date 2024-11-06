@@ -116,7 +116,7 @@ VALUES
 INSERT INTO contract (name, contract_type_id, contract_objective, start_date, end_date, contracted_value, payment_method_id, execution_local, latitude, longitude, subsidiary_company_id, contract_manager_id, contracted_company_id, legal_representative_id, status, financial_progress)
 VALUES
     ('Solução Ambiental Eco Solutions', 1, 'Desenvolvimento de sistema de monitoramento ambiental', '2024-02-01', '2024-10-31', 150000, 6, 'Curitiba', -25.4372, -49.2691, 4, 4, 4, 4, 'CANCELED', 0),
-    ('Sistema de Armazenamento DataSafe', 2, 'Consultoria para otimização de armazenamento', '2024-01-15', '2024-06-15', 120000, 2, 'Curitiba', -25.4372, -49.2691, 3, 5, 3, 3, 'PARALYZED', 25),
+    ('Sistema de Armazenamento DataSafe', 2, 'Consultoria para otimização de armazenamento', '2024-01-15', '2024-06-15', 120000, 2, 'Salvador',  -12.9714, -38.5014, 3, 5, 3, 3, 'PARALYZED', 25),
     ('Consultoria em Processos PowerBuild', 2, 'Consultoria em processos para construção', '2024-04-01', '2025-03-31', 180000, 1, 'Porto Alegre', -30.0346, -51.2177, 5, 6, 5, 5, 'IN_PROGRESS', 10);
 
 -- Para o contrato "Consultoria Ambiental Green Earth"
